@@ -24,11 +24,11 @@ class Task {
         })
     }
 
-    static create(text, day){
+    static create(text, day, reminder){
         return new Promise (async (resolve, reject) => {
             try {
                 const db = await init();
-                let taskData = await db.collection('tasks').insertOne({ text, day, reminder:false })
+                let taskData = await db.collection('tasks').insertOne({ text, day, reminder })
                 let newTask = new Task(taskData.ops[0]);
                 resolve (newTask);
             } catch (err) {
