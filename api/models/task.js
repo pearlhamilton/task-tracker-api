@@ -37,6 +37,37 @@ class Task {
         });
     }
 
+    static findById (id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const db = await init();
+                let taskData = await db.collection('tasks').find({ _id: ObjectId(id) }).toArray()
+                let task = new Task({...taskData[0], id: taskData[0]._id});
+                resolve (task);
+            } catch (err) {
+                reject('Task not found');
+            }
+
+
+
+        });
+
+
+        
+    }
+
+    destroy(){
+        return new Promise(async(resolve, reject) => {
+            try {
+                const db = await init();
+                await db.collection('tasks').deleteOne({ _id: ObjectId(this.id) })
+                resolve('Task was deleted')
+            } catch (err) {
+                reject('Task could not be deleted')
+            }
+        })
+    }
+
 
 
 }
