@@ -6,7 +6,7 @@ services:
     ports: 
       - 3000:3000
     environment: 
-      - DB_NAME=shelter
+      - DB_NAME=task-tracker
       - DB_CONNECTION=mongodb://pearlH:task-tracker-pass@db:27017
     depends_on:
       - db
