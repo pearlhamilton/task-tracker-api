@@ -25,6 +25,19 @@ router.post('/', async (req, res) => {
     }
 })
 
+
+router.patch('/:id', async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.id)
+        console.log(task)
+        const updatedTask = await task.update()
+        res.json({task: updatedTask})
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
+
 router.delete('/:id', async (req, res) => {
     try {
         const task = await Task.findById(req.params.id)

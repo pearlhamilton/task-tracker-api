@@ -56,6 +56,23 @@ class Task {
         
     }
 
+    update() {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const db = await init()
+            
+                let updatedTaskData = await db.collection('tasks').findOneAndUpdate({ _id: ObjectId(this.id) }, { $set: {reminder: !this.reminder }}, { returnOriginal: false })
+                let updatedTask = new Task(updatedTaskData.value);
+
+                resolve ('Task updated');
+
+
+            } catch (err) {
+                console.log(err)
+                reject('Error updating Task');
+            }
+        });
+    }
     destroy(){
         return new Promise(async(resolve, reject) => {
             try {
