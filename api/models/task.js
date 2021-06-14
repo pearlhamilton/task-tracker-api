@@ -24,6 +24,21 @@ class Task {
         })
     }
 
+    static create(text, day){
+        return new Promise (async (resolve, reject) => {
+            try {
+                const db = await init();
+                let taskData = await db.collection('tasks').insertOne({ text, day, reminder:false })
+                let newTask = new Task(taskData.ops[0]);
+                resolve (newTask);
+            } catch (err) {
+                reject('Error creating dog');
+            }
+        });
+    }
+
+
+
 }
 
 
